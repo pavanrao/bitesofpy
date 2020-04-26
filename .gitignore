@@ -14,6 +14,9 @@ venv
 #exclude vscode files
 .vscode
 
+#exclude ipython/jupyter checkpoints
+.ipynb_checkpoints/
+
 # IntelliJ project files
 .idea
 *.iml
