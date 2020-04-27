@@ -12,3 +12,8 @@ def test_fib():
     assert fib(5) == 5
     assert fib(6) == 8
     assert fib(7) == 13
+
+def test_value_error():
+    with pytest.raises(ValueError):
+        fib(-1)
+        
