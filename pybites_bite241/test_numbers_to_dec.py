@@ -15,15 +15,42 @@ def test_success():
     assert list_to_decimal([0, 4, 2, 8]) == 428
     assert list_to_decimal([1, 2]) == 12
     assert list_to_decimal([3]) == 3
+    assert list_to_decimal([1,2,3,4,5,6,7,8,9,0]) == 1234567890
+    
 
 def test_ValueError():
     with pytest.raises(ValueError):
         list_to_decimal([-3, 12])
         list_to_decimal([])
+        
 
 def test_TypeError():
     with pytest.raises(TypeError):
         list_to_decimal([6, 2, True])
         list_to_decimal([3.6, 4, 1])
         list_to_decimal(['4', 5, 3, 1])
-  
+        list_to_decimal([False, True, 0, -1])
+
+def test_range():
+    with pytest.raises(ValueError):
+        list_to_decimal([11,99])
+        list_to_decimal([10,0])
+        
+@pytest.mark.xfail
+def test_mutaion():
+    """
+    This did not helo with testing mutation. 
+    """
+    if(list_to_decimal([10]) == 10):
+        pytest.xfail("Extra test case to pass mutation test")
+
+def test_mutaion_2():
+    """
+    This test was added so that a mutation would fail the code.
+    Pybites uses mut.py to test the tests.
+    Cehck this link for more details:
+    https://pybit.es/guest-mutpy-exploration.html
+    """
+    with pytest.raises(ValueError):
+        assert list_to_decimal([10]) == 10
+    
