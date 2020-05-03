@@ -2,23 +2,16 @@ import pytest
 
 from workouts import print_workout_days
 
-
-def test_print_workout_days_upper(capsys):
-    print_workout_days("upper")
+@pytest.mark.parametrize(
+    "test_input, expected",[
+        ("upper", "Mon, Thu\n"),
+        ("lower", "Tue, Fri\n"),
+        ("cardio", "Wed\n"),
+        ("brain", "No matching workout\n")
+    ]
+)
+def test_print_workout(capsys, test_input, expected):
+    print_workout_days(test_input)
     captured = capsys.readouterr()
-    assert captured.out=="Mon, Thu\n"
+    assert captured.out == expected 
 
-def test_print_workout_days_lower(capsys):
-    print_workout_days("lower")
-    captured = capsys.readouterr()
-    assert captured.out=="Tue, Fri\n"
-
-def test_print_workout_days_cardio(capsys):
-    print_workout_days("cardio")
-    captured = capsys.readouterr()
-    assert captured.out=="Wed\n"
-
-def test_print_workout_days_no_match(capsys):
-    print_workout_days("brain")
-    captured = capsys.readouterr()
-    assert captured.out=="No matching workout\n"
