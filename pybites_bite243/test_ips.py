@@ -21,17 +21,12 @@ def json_file():
     return PATH
 
 
-def test_default_gateway_empty_list(json_file):
-    service_ranges = parse_ipv4_service_ranges(json_file)
-    x = get_aws_service_range("192.168.0.1", service_ranges) 
-    assert x == []
-
-
 def test_ValueError(json_file):
-    with pytest.raises(ValueError) as ex:
+    with pytest.raises(ValueError) as excinfo:
         service_ranges = parse_ipv4_service_ranges(json_file)
         get_aws_service_range("256.0.0.0", service_ranges) 
-        assert ex.value.message == 'Address must be a valid IPv4 address'
+    assert 'Address must be a valid IPv4 address' in str(excinfo.value) 
+
 
 def test_valid(json_file):
     service_ranges = parse_ipv4_service_ranges(json_file)
@@ -39,7 +34,3 @@ def test_valid(json_file):
     assert x == [ServiceIPRange(service='AMAZON', region='eu-west-3', cidr=IPv4Network('35.180.0.0/16')), 
     ServiceIPRange(service='EC2', region='eu-west-3', cidr=IPv4Network('35.180.0.0/16'))]
     assert str(x[0]) == '35.180.0.0/16 is allocated to the AMAZON service in the eu-west-3 region'
-
-def test_str(json_file):
-    service_ranges = parse_ipv4_service_ranges(json_file)
-    assert str(service_ranges[0]) == '35.180.0.0/16 is allocated to the AMAZON service in the eu-west-3 region'

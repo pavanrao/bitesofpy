@@ -7,3 +7,6 @@ For questions use [our Slack](https://pybites.slack.com/archives/C6BGDQQ3B) (no 
 Check out our full catalogue of Bites of Py [here](https://codechalleng.es/bites/catalogue).
 
 Enjoy and keep calm and code in Python!
+
+run this command for mutation testing:
+```mut.py --target ips --unit-test test_ips.py --runner pytest -m -c```
