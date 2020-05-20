@@ -24,15 +24,14 @@ def get_harry_most_common_word():
     ]
 
     _txt = [
-        line.strip().lower()
+        re.sub(r'\W+', r'', word) 
         for line in open(harry_text)
+        for word in line.strip().lower().split()
     ]
-    _txt = [' '.join(re.findall('[a-z\'s ]+', line))  for line in _txt]
-    text = ' '.join(_txt)
 
     word_list = [
         word 
-        for word in text.split() 
+        for word in _txt 
         if word not in stop_words and len(word) > 1
     ]
 
