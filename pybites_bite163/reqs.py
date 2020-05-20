@@ -6,13 +6,25 @@ def changed_dependencies(old_reqs: str, new_reqs: str) -> list:
        and return a list of dependencies that have been upgraded
        (have a newer version)
     """
-    old = {req.split('==')[0]: req.split('==')[1] for req in old_reqs.strip().split('\n')}
-    new = {req.split('==')[0]: req.split('==')[1] for req in new_reqs.strip().split('\n')}
+    old = _get_pkg_dict(old_reqs)
+    new = _get_pkg_dict(new_reqs)
     return [
        key for key in old 
-       if split_v(old[key]) < split_v(new[key])
+       if _split_v(old[key]) < _split_v(new[key])
     ]
 
 
-def split_v(v: list) -> list:
+def _get_pkg_dict(reqs: str) -> dict:
+    return dict(
+       line.split('==')
+       for line in reqs.strip().splitlines()
+    )
+
+
+def _split_v(v: list) -> list:
+    """
+    Splits a string of numbers separated by '.' 
+    and returns a list of ints
+    Alternative : use from distutils.version import StrictVersion
+    """
     return list(map(int, v.split('.')))
