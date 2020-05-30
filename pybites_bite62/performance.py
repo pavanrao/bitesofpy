@@ -40,7 +40,7 @@ def ordered_list_max(sequence: List[int]) -> int:
 
 @timing
 def ordered_list_max_fast(sequence: List[int]) -> int:
-    return heapq.nlargest(1,sequence)[0]
+    return sequence[-1]
 
 
 @timing
