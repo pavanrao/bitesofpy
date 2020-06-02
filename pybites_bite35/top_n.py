@@ -38,13 +38,4 @@ def get_latest_dates(dates, n=3):
 
 
 def get_highest_earnings(earnings_mln, n=3):
-    e = dict()
-    for earning in earnings_mln:
-        e[earning['name']] = earning['earnings']
-    top_n = heapq.nlargest(n, e, key=e.get)
-    result = []
-    for name in top_n:
-        for earning in earnings_mln:
-            if earning['name'] == name:
-                result.append(earning)
-    return result
+    return heapq.nlargest(n, earnings_mln, key=lambda x: x['earnings'])
