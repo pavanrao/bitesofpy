@@ -25,7 +25,7 @@ def alpha_index_series() -> pd.Series:
     so index 'a'=1, 'b'=2 ... 'y'=25, 'z'=26
     Don't worry about the series name.
     """
-    return pd.Series(data = range(1,27), index=list(string.ascii_lowercase))
+    return pd.Series(dict(zip(string.ascii_lowercase, range(1, 27))))
 
 
 def object_values_series() -> pd.Series:
@@ -34,4 +34,4 @@ def object_values_series() -> pd.Series:
     so index 101='A', 102='B' ... 125='Y', 126='Z'
     Don't worry about the series name.
     """
-    return pd.Series(data = list(string.ascii_uppercase), index = range(101, 127))
+    return pd.Series(dict(zip(range(101, 127), string.ascii_uppercase)))
